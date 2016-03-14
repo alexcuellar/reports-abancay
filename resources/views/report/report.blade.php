@@ -31,6 +31,7 @@
                 $nombre=$taxs[0]->datos_completo;
                 $num_doc=$taxs[0]->num_doc;
                 $direccion=$taxs[0]->direccion;
+                $predio_id=$taxs[0]->predio_id;
                 $tributos_padre=collect($taxs)->groupBy('derecho_emision_grupo_id');
             ?>
             
@@ -53,11 +54,18 @@
                     <td><strong>Direccion: </strong></td>
                     <td>{{$direccion}}</td>
                 </tr>
+                <tr>
+                    <td><strong>Predio id: </strong></td>
+                    <td>{{$predio_id}}</td>
+                </tr>
             </table>
             <table class="table">
                 <thead>
                     <tr>
                         <th>Conceptos</th>
+                        <th>Mes</th>
+                        <th>Emisión</th>
+                        <th>Vencimiento</th>
                         <th>Deuda</th>
                         <th>Importe</th>
                         <th>Subtotal</th>
@@ -83,27 +91,38 @@
                             <?php 
                                 $deuda=$deuda+floatval($tributo->importe_cuota);
                             ?>
+                        
+                            <tr>
+                                <td>
+                                    {{ $tributo->derecho_emision_grupo_desc }}
+                                </td>
+                                <td>
+                                    {{ $tributo->cuota.'-'.$tributo->ano_aplicacion }}
+                                </td>
+                                <td>
+                                    {{ date('d-m-Y', strtotime("{$tributo->fecha_generacion}")) }}
+                                </td>
+                                <td>
+                                    {{ date('d-m-Y', strtotime("{$tributo->fecha_vencimiento}")) }}
+                                    
+                                </td>
+                                <td class="text-right">
+                                    {{ floatval($tributo->importe_cuota) }}
+                                </td>
+                                <td class="text-right">
+                                    {{ $importe }}
+                                </td>
+                                <td class="text-right">
+                                    {{ $importe+$deuda }}
+                                </td>
+                            </tr>
                         @endforeach
-                        <tr>
-                            <td>
-                                {{ $tax_name }}
-                            </td>
-                            <td class="text-right">
-                                {{ $deuda }}
-                            </td>
-                            <td class="text-right">
-                                {{ $importe }}
-                            </td>
-                            <td class="text-right">
-                                {{ $importe+$deuda }}
-                            </td>
-                        </tr>
                         <?php $total=$total+$importe+$deuda; ?>
                     @endforeach
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="3">
+                        <td colspan="6">
                             <strong>Total</strong>
                         </td>
                         <td class="text-right">
@@ -113,7 +132,6 @@
                 </tfoot>
                     
             </table>  
-        
             <div style="page-break-before:always;"></div>
         @endforeach
         
