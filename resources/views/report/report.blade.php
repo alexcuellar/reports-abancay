@@ -78,6 +78,9 @@
                             $deuda=0; 
                             $importe=0;
                             $tax_name='';
+                            $ano_aplicacion='';
+                            $fecha_generacion='';
+                            $fecha_vencimiento='';
                         ?>
                         @foreach ($tributos as $tributo)
                             @if ($temp === 0)
@@ -86,37 +89,41 @@
                                     $deuda= -1*$importe;
                                     $tax_name=$tributo->derecho_emision_grupo_desc;
                                     $temp=1;
+                                    $ano_aplicacion=$tributo->cuota.'-'.$tributo->ano_aplicacion;
+                                    $fecha_generacion=date('d-m-Y', strtotime("{$tributo->fecha_generacion}"));
+                                    $fecha_vencimiento=date('d-m-Y', strtotime("{$tributo->fecha_vencimiento}"))
                                 ?>
                             @endif
                             <?php 
                                 $deuda=$deuda+floatval($tributo->importe_cuota);
                             ?>
                         
-                            <tr>
-                                <td>
-                                    {{ $tributo->derecho_emision_grupo_desc }}
-                                </td>
-                                <td>
-                                    {{ $tributo->cuota.'-'.$tributo->ano_aplicacion }}
-                                </td>
-                                <td>
-                                    {{ date('d-m-Y', strtotime("{$tributo->fecha_generacion}")) }}
-                                </td>
-                                <td>
-                                    {{ date('d-m-Y', strtotime("{$tributo->fecha_vencimiento}")) }}
-                                    
-                                </td>
-                                <td class="text-right">
-                                    {{ floatval($tributo->importe_cuota) }}
-                                </td>
-                                <td class="text-right">
-                                    {{ $importe }}
-                                </td>
-                                <td class="text-right">
-                                    {{ $importe+$deuda }}
-                                </td>
-                            </tr>
+                            
                         @endforeach
+                        <tr>
+                            <td>
+                                {{ $tax_name }}
+                            </td>
+                            <td>
+                                {{ $ano_aplicacion }}
+                            </td>
+                            <td>
+                                {{ $fecha_generacion }}
+                            </td>
+                            <td>
+                                {{ $fecha_vencimiento }}
+                                
+                            </td>
+                            <td class="text-right">
+                                {{ $deuda }}
+                            </td>
+                            <td class="text-right">
+                                {{ $importe }}
+                            </td>
+                            <td class="text-right">
+                                {{ $importe+$deuda }}
+                            </td>
+                        </tr>
                         <?php $total=$total+$importe+$deuda; ?>
                     @endforeach
                 </tbody>

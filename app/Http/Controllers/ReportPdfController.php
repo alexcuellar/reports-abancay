@@ -28,7 +28,6 @@ class ReportPdfController extends Controller
                     ->orderBy('APELLIDO_MATERNO', 'asc')
                     ->orderBy('NOMBRE', 'asc')
                     ->orderBy('cuota', 'desc')
-                    ->take(100)
                     ->get();
         //dd($taxes); 
         return PDF::loadView('report.report', ['taxes' => collect($taxes)->groupBy('predio_expediente_id')])->setPaper('a5')->setOrientation('landscape')->download('recibos-fecha'.'-'.$request->fecha.'.pdf');
