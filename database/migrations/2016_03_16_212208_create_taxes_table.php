@@ -12,7 +12,9 @@ class CreateTaxesTable extends Migration
      */
     public function up()
     {
-        Schema::table('taxes', function (Blueprint $table) {
+        Schema::create('taxes', function (Blueprint $table) {
+            //$table->increments('id');
+            //$table->timestamps();
             $table->integer('cta_cte_renta_id');
             $table->integer('tributo');
             $table->integer('ano_aplicacion');
@@ -33,6 +35,7 @@ class CreateTaxesTable extends Migration
             $table->double('importe_emision', 15, 3);
             $table->date('fecha_vencimiento');
         });
+    }
 
     /**
      * Reverse the migrations.

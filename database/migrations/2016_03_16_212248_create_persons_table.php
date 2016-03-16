@@ -12,7 +12,9 @@ class CreatePersonsTable extends Migration
      */
     public function up()
     {
-        Schema::table('persons', function (Blueprint $table) {
+        Schema::create('persons', function (Blueprint $table) {
+            //$table->increments('id');
+            //$table->timestamps();
             $table->integer('persona_municipio_id');
             $table->char('tipo_doc', 2);
             $table->char('num_doc', 20);
@@ -23,6 +25,7 @@ class CreatePersonsTable extends Migration
             $table->string('direccion');
         });
     }
+
     /**
      * Reverse the migrations.
      *
