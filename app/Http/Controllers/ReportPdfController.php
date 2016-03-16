@@ -29,13 +29,7 @@ class ReportPdfController extends Controller
                     ->orderBy('NOMBRE', 'asc')
                     ->orderBy('cuota', 'desc')
                     ->get();
-        //dd($taxes); 
         return PDF::loadView('report.report', ['taxes' => collect($taxes)->groupBy('predio_expediente_id')])->setPaper('a5')->setOrientation('landscape')->download('recibos-fecha'.'-'.$request->fecha.'.pdf');
-        //$process=new Process($report);
-        //$process->setTimeout(null);
-        //$process->run();
-        
-        //return view('report.report', ['taxes' => collect($taxes)->groupBy('predio_expediente_id')]);
     }
 	public function get_person($person_id){
 		$person = DB::table('PERSONS')

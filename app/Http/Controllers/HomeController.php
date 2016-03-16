@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Validator;
+use App\User;
 
 class HomeController extends Controller
 {
