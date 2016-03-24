@@ -13,15 +13,13 @@ class CreateTaxesTable extends Migration
     public function up()
     {
         Schema::create('taxes', function (Blueprint $table) {
-            //$table->increments('id');
-            //$table->timestamps();
+            $table->increments('id');
             $table->integer('cta_cte_renta_id');
             $table->integer('tributo');
             $table->integer('ano_aplicacion');
             $table->date('fecha_generacion');
-            $table->double('base_imponible', 18, 3);
             $table->char('estado_proceso', 1);
-            $table->double('insoluto', 18, 3);
+            $table->float('insoluto');
             $table->char('generado', 1);
             $table->integer('propietario_id');
             $table->integer('predio_expediente_id');
@@ -31,9 +29,10 @@ class CreateTaxesTable extends Migration
             $table->char('derecho_emision_grupo_desc', 60);
             $table->integer('cuota');
             $table->integer('numero_recibo_emision');
-            $table->double('importe_cuota', 15, 3);
-            $table->double('importe_emision', 15, 3);
+            $table->float('importe_cuota');
+            $table->float('importe_emision');
             $table->date('fecha_vencimiento');
+            $table->timestamps();
         });
     }
 

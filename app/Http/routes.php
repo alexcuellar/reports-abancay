@@ -34,6 +34,8 @@ Route::group(['middleware' => ['web']], function () {
 	Route::get('clients/autocomplete', 'ClientController@autocomplete');
     Route::get('/report', 'ReportController@index');
     Route::post('/reports', 'ReportPdfController@index');
+    Route::get('/import', 'ImportController@index');
+    Route::post('/import', 'ImportController@import');
 });
 
 Route::group(['middleware' => 'web'], function () {

@@ -157,6 +157,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Barryvdh\Snappy\ServiceProvider::class,
         Yajra\Oci8\Oci8ServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Chumper\Zipper\ZipperServiceProvider::class,
     ],
 
     /*
@@ -204,6 +206,8 @@ return [
         'View'      => Illuminate\Support\Facades\View::class,
         'PDF'       => Barryvdh\Snappy\Facades\SnappyPdf::class,
         'Image'     => Barryvdh\Snappy\Facades\SnappyImage::class,
+        'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
+        'Zipper'    => Chumper\Zipper\Zipper::class,
     ],
 
 ];
