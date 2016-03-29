@@ -44,15 +44,14 @@ class ImportController extends Controller
 	        	$zip_file=$request->file('file')->getRealPath();
 	        	$zipper=Zipper::make($zip_file);
 	        	$zipper->extractTo('/tmp');
-	        	//$set_csv = fopen($temp_file, "w");
-	        	//fwrite($set_csv, $zipper->getFileContent('export.csv'));
-	        	//fclose($set_csv);
-	        	//dd(sys_get_temp_dir().'/export.csv');
+	        	//ini_set("memory_limit","7G");
+				ini_set('max_execution_time', '0');
+				//ini_set('max_input_time', '0');
+				
 	        	if ($request->table=='taxes'){
 	        		DB::table('taxes')->delete();
 	        		Excel::load(sys_get_temp_dir().'/export.csv', function ($reader) {
-	        			foreach ($reader->get() as $row) {
-	        				dd($row);
+        				foreach ($reader->get() as $row) {
 	        				$data=[
 	        						"cta_cte_renta_id" => intval($row->cta_cte_renta_id),
 	        						"tributo" => intval($row->tributo),
@@ -76,6 +75,8 @@ class ImportController extends Controller
 	        				Tax::create($data);
 		        			
 				    	}
+
+		        		
 				    		
 				    });
 			    }
