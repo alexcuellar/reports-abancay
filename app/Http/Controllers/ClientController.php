@@ -43,13 +43,22 @@ class ClientController extends Controller
                     ->where('cuota', '<=', date("n"))
                     ->whereIn('derecho_emision_grupo_id', [3,4,5])
                     ->where('num_doc', '=', $num_doc['id'])
+                    ->whereNotIn('cuenta_corriente_resumen_id', function($query)
+                        {
+                            $query->select(DB::raw('cuenta_corriente_resumen_id'))
+                                  ->from('movements')
+                                  ->whereRaw('movements.cuenta_corriente_resumen_id = taxes.cuenta_corriente_resumen_id');
+                        })
                     ->orderBy('APELLIDO_PATERNO', 'asc')
                     ->orderBy('APELLIDO_MATERNO', 'asc')
                     ->orderBy('NOMBRE', 'asc')
                     ->orderBy('cuota', 'desc')
-                    ->take(100)
                     ->get();
-		return view('report.client', ['taxes' => collect($taxes)->groupBy('predio_expediente_id')]);
+        $fecha=date("d-m-Y");
+        $charges= DB::table('charges')->where('ano_aplicacion', '=', date('Y', strtotime("{$fecha}")))
+                    ->orderBy('MES_APLICACION', 'asc')
+                    ->get();
+        return view('report.client', ['taxes' => collect($taxes)->groupBy('predio_expediente_id'), 'fecha'=>$fecha, 'charges'=>$charges]);
 	}
 	public function autocomplete(Request $request){
 		$term = Input::get('term');

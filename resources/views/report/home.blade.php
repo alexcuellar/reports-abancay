@@ -16,6 +16,7 @@
                             <option value="357">PARQUES Y JARDINES</option>
                         </select-->
                         <p>Fecha: <input type="text" name="fecha" id="datepicker"></p>
+                        <p>Direccion: <input type="text" name="direccion"></p>
                         <button type="submit" class="btn btn-default btn-sm">
                             <span class="glyphicon glyphicon-download-alt"></span> Descargar Recibos
                         </button>

@@ -1,0 +1,26 @@
+
+table {
+	width: 100%;
+}
+
+header {
+    width: 100%;
+	height: 31mm;
+}
+
+section {
+    width: 100%;
+}
+
+footer {
+    width: 100%;
+    padding-top: 18mm;
+}
+
+.contribuyente {
+    height: 20mm;
+}
+
+.servicio {
+    height: 20mm;
+}
